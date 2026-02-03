@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Product Details</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f3f3f3;
+}
+header {
+    background: #131921;
+    color: white;
+    padding: 12px 20px;
+    font-size: 22px;
+}
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    background: white;
+}
+.images img {
+    width: 100%;
+    border: 1px solid #ddd;
+}
+.details h1 {
+    font-size: 22px;
+}
+.price {
+    font-size: 26px;
+    color: #b12704;
+}
+.buy-box {
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+.buy-box button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+.add { background: #ffd814; }
+.buy { background: #ffa41c; }
+.stock { color: green; font-weight: bold; }
+</style>
+</head>
+
+<body>
+
+<header>🛒 ShopEasy</header>
+
+<div class="container">
+    <div class="images">
+        <img id="productImage">
+    </div>
+
+    <div class="details">
+        <h1 id="productName"></h1>
+        <p id="productRating"></p>
+        <p class="price" id="productPrice"></p>
+        <p id="productMrp"></p>
+
+        <h3>About this item</h3>
+        <ul id="productFeatures"></ul>
+    </div>
+
+    <div class="buy-box">
+        <p class="price" id="buyPrice"></p>
+        <p class="stock">In Stock</p>
+        <button class="add">Add to Cart</button>
+        <button class="buy">Buy Now</button>
+    </div>
+</div>
+
+<script>
+/* PRODUCT DATABASE */
+const products = {
+    phone1: {
+        name: "Samsung Galaxy A55 5G",
+        price: "₹25,999",
+        mrp: "₹42,999",
+        rating: "⭐⭐⭐⭐☆ 4.3 (5,396 ratings)",
+        image: "https://picsum.photos/400?1",
+        features: [
+            "50MP OIS Camera",
+            "Super AMOLED Display",
+            "8GB RAM, 128GB Storage",
+            "IP67 Water Resistant"
+        ]
+    },
+
+    phone2: {
+        name: "Apple iPhone 13",
+        price: "₹52,999",
+        mrp: "₹69,900",
+        rating: "⭐⭐⭐⭐⭐ 4.6 (10,000 ratings)",
+        image: "https://picsum.photos/400?2",
+        features: [
+            "A15 Bionic Chip",
+            "Dual 12MP Camera",
+            "Super Retina XDR Display",
+            "iOS Optimized Performance"
+        ]
+    },
+
+    book1: {
+        name: "Java Programming Book",
+        price: "₹499",
+        mrp: "₹799",
+        rating: "⭐⭐⭐⭐☆ 4.2",
+        image: "https://picsum.photos/400?25",
+        features: [
+            "Core Java Concepts",
+            "OOP Explained",
+            "Interview Questions",
+            "Beginner Friendly"
+        ]
+    }
+};
+
+/* LOAD PRODUCT */
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+const product = products[id];
+
+if (product) {
+    document.getElementById("productName").innerText = product.name;
+    document.getElementById("productPrice").innerText = product.price;
+    document.getElementById("buyPrice").innerText = product.price;
+    document.getElementById("productMrp").innerText = "M.R.P: " + product.mrp;
+    document.getElementById("productRating").innerText = product.rating;
+    document.getElementById("productImage").src = product.image;
+
+    product.features.forEach(f => {
+        const li = document.createElement("li");
+        li.innerText = f;
+        document.getElementById("productFeatures").appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
